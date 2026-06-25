@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Check Balance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h1>Check Balance</h1>
+
+<input type="number" id="acc" placeholder="Account Number">
+<input type="password" id="pin" placeholder="PIN">
+
+<button onclick="checkBalance()">Check</button>
+
+<div id="result" class="result"></div>
+<button onclick="back()">⬅ Back</button>
+</div>
+
+<script>
+const BASE_URL = "http://localhost:8080";
+
+async function checkBalance() {
+  const res = await fetch(`${BASE_URL}/balance/${acc.value}/${pin.value}`);
+  const text = await res.text();
+  result.innerHTML = text.replace(/\n/g, "<br>");
+}
+
+function back() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

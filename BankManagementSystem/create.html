@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Account</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h1>Create Account</h1>
+
+<input type="text" id="name" placeholder="Name">
+<input type="text" id="address" placeholder="Address">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="pin" placeholder="4-digit PIN">
+
+<button onclick="createAccount()">Create</button>
+
+<div id="result" class="result"></div>
+<button onclick="back()">⬅ Back</button>
+</div>
+
+<script>
+const BASE_URL = "http://localhost:8080";
+
+async function createAccount() {
+  const res = await fetch(`${BASE_URL}/createAccount`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      name: name.value,
+      address: address.value,
+      email: email.value,
+      pin: pin.value
+    })
+  });
+
+  const text = await res.text();
+  result.innerHTML = text.replace(/\n/g, "<br>");
+}
+
+function back() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
